@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,31 +8,36 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { toast } from "sonner";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("alex.johnson@stanford.edu");
+  const [password, setPassword] = useState("password123");
+  const navigate = useNavigate();
   
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would connect to an authentication service
-    toast.success("Login successful!");
+    // En una app real, esto se conectaría a un servicio de autenticación
+    toast.success("¡Inicio de sesión exitoso!");
+    // Redirigir al usuario a la página principal después de iniciar sesión
+    setTimeout(() => {
+      navigate("/matching");
+    }, 1000);
   };
   
   return (
     <Card className="w-full max-w-md shadow-lg">
       <CardHeader className="space-y-1 text-center">
-        <h2 className="text-2xl font-bold">Login to Scholar Connect</h2>
+        <h2 className="text-2xl font-bold">Iniciar sesión en Scholar Connect</h2>
         <p className="text-sm text-muted-foreground">
-          Enter your credentials to access your account
+          Ingresa tus credenciales para acceder a tu cuenta
         </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Institutional Email</Label>
+            <Label htmlFor="email">Correo Institucional</Label>
             <Input 
               id="email" 
               type="email" 
-              placeholder="you@university.edu" 
+              placeholder="tu@universidad.edu" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required 
@@ -39,9 +45,9 @@ const LoginForm = () => {
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Contraseña</Label>
               <a href="#" className="text-xs text-primary hover:underline">
-                Forgot password?
+                ¿Olvidaste tu contraseña?
               </a>
             </div>
             <Input 
@@ -53,7 +59,7 @@ const LoginForm = () => {
             />
           </div>
           <Button type="submit" className="w-full bg-scholar-blue hover:bg-scholar-blue/90">
-            Sign In
+            Iniciar Sesión
           </Button>
         </form>
         
@@ -63,7 +69,7 @@ const LoginForm = () => {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-card px-2 text-muted-foreground">
-              Or continue with
+              O continuar con
             </span>
           </div>
         </div>
@@ -88,9 +94,9 @@ const LoginForm = () => {
       </CardContent>
       <CardFooter className="flex justify-center">
         <p className="text-sm text-center text-muted-foreground">
-          Don't have an account?{" "}
+          ¿No tienes una cuenta?{" "}
           <a href="#register" className="text-primary hover:underline">
-            Create account
+            Crear cuenta
           </a>
         </p>
       </CardFooter>
